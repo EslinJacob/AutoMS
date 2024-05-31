@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %} | {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-11 mx-md-auto mx-3 mt-5 mb-5">
+            <a href="{% url 'inventory:inventory_home' %}" style="text-decoration: none;"><h1>Inventory Management</h1></a>
+        </div>
+    </div>
+
+    {% include "dropdown.html" %}
+    <br>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Part Number</th>
+                <th>Part Name</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+                <th>Vehicle Model</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for part in filtered_parts %}
+            <tr>
+                <td>{{ part.part_no }}</td>
+                <td>{{ part.part_name }}</td>
+                <td>{{ part.quantity }}</td>
+                <td>{{ part.cost }}</td>
+                <td>{{ part.vehicle_model }}</td>
+                <td><a href="{% url 'inventory:edit_spareparts' part.part_no %}" class="text-decoration-none">Edit</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

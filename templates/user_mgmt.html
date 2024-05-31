@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}User Management | {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center my-3">
+            <a class="btn btn-primary" href="{% url 'core:signup' %}">Add user</a>
+        </div>
+    </div>
+
+    {% for emp in employees %}
+        <div class="row">
+            <div class="col-md-6 col-12 mx-auto my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">ID: {{ emp.id }}</h5>
+                        <p class="card-text">Name: {{ emp.employee.username }}</p>
+                        <p class="card-text">Type: {{ emp.employee_type }}</p>
+                        <a class="btn btn-danger" href="{% url 'core:edit_employee' emp.id %}">Edit user</a>
+                        <a class="btn btn-danger" href="{% url 'core:delete_employee' emp.id %}">Delete user</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

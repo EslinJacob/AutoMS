@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit user | {% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-11 col-md-4 mx-auto mt-5">
+        <form method="post" action=".">
+            <h1>Edit User</h1>
+            {% csrf_token %}
+            {{ userform|crispy }}
+            {{ profileform|crispy }}
+
+            {% if user_errors %}
+                <div class="alert alert-danger">
+                    <strong>Form submission failed due to the following errors:</strong>
+                    <ul>
+                        {% for field, error_list in user_errors.items %}
+                            {% for error in error_list %}
+                                <li>{{ error|escape }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if profile_errors %}
+                <div class="alert alert-danger">
+                    <strong>Form submission failed due to the following errors:</strong>
+                    <ul>
+                        {% for field, error_list in profile_errors.items %}
+                            {% for error in error_list %}
+                                <li>{{ error|escape }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div class="text-center">
+                <button class="btn btn-secondary" type="submit">Submit</button>
+            </div>
+            <br>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

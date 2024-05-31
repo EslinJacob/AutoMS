@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home | {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Welcome!</h5>
+                    <p class="card-text">To continue into AutoMS, please..</p>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'core:login' %}" class="btn btn-primary">Login</a>
+                        {% comment %} <a href="{% url 'core:signup' %}" class="btn btn-secondary">Sign Up</a> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

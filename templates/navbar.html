@@ -1,0 +1,104 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'core:index_page' %}">AutoMS</a>
+        {% comment %} <!-- <a class="navbar-brand" href="{% url "homepage" %}"><img src="{% static 'misc_icons/logo.png' %}" alt="Logo" class="logo"></a> --> {% endcomment %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% comment %} <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">About us</a>
+                </li> {% endcomment %}
+                {% comment %} {% if request.path == '/blog/' %}
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'blog:search' %}">Search</a>
+                    </li>
+                {% endif %}
+                {% endcomment %}
+                {% if request.user.is_authenticated %}
+                    {% if request.path == '/inventory/' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inventory:all_vehicles' %}">Manage vehicles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inventory:all_spareparts' %}">Manage spare parts</a>
+                        </li>
+                    {% endif %}
+                    {% if request.path == '/inventory/all_vehicles/' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inventory:all_spareparts' %}">Manage spare parts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'search:search_vehicle_model' %}">Search</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inventory:new_vehicle' %}">Add vehicle</a>
+                        </li>
+                    {% endif %}
+                    {% if request.path == '/inventory/all_spareparts/' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inventory:all_vehicles' %}">Manage vehicles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'search:search_spareparts' %}">Search</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inventory:new_spareparts' %}">Add spareparts</a>
+                        </li>
+                    {% endif %}
+                    {% if request.path == '/search/vehiclemodel/' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inventory:all_vehicles' %}">Manage vehicles</a>
+                        </li>
+                    {% endif %}
+                    {% if request.path == '/search/spareparts/' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inventory:all_spareparts' %}">Manage spareparts</a>
+                        </li>
+                    {% endif %}
+                    {% if request.path == '/management/' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'management:new_vehicleservice' %}">Register vehicle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'management:all_servicetypes' %}">Manage services</a>
+                        </li>
+                    {% endif %}
+                    {% if request.path == '/management/all_servicetypes/' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'management:new_servicetypes' %}">Add service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'management:management_home' %}">Check progress</a>
+                        </li>
+                    {% endif %}
+                {% endif %} 
+            </ul>
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'core:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link">Sign out</button>
+                        </form>
+                    </li>
+                {% else %}
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:signup' %}">Sign up</a>
+                    </li>
+                    {% if request.path == '/blog/' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:bloglogin' %}">Log in</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:login' %}">Log in</a>
+                    </li>
+                    {% endif %} {% endcomment %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

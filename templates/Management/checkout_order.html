@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Bill overview | {% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-11 mx-md-auto mx-3 mt-5 mb-5">
+        <h3>Thank you for using our service</h3>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Item</th>
+            <th scope="col">Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Additional Parts -->
+        <tr>
+            <th scope="row" rowspan="{{ data.additional_parts|length }}">Additional Parts</th>
+            {% for part_name, cost in data.additional_parts.items %}
+            <td>{{ part_name }}</td>
+            <td>₹{{ cost }}</td>
+            </tr>
+            {% if not loop.last %}
+            <tr>
+            {% endif %}
+            {% endfor %}
+        
+        <!-- Service Types -->
+        <tr>
+            <th scope="row" rowspan="{{ data.service_types|length }}">Service Types</th>
+            {% for service_name, cost in data.service_types.items %}
+            <td>{{ service_name }}</td>
+            <td>₹{{ cost }}</td>
+            </tr>
+            {% if not loop.last %}
+            <tr>
+            {% endif %}
+            {% endfor %}
+        
+        <!-- Service Parts -->
+        <tr>
+            <th scope="row" rowspan="{{ data.service_parts|length }}">Service Parts</th>
+            {% for part_name, cost in data.service_parts.items %}
+            <td>{{ part_name }}</td>
+            <td>₹{{ cost }}</td>
+            </tr>
+            {% if not loop.last %}
+            <tr>
+            {% endif %}
+            {% endfor %}
+        
+        <!-- Tax and Total -->
+        <tr>
+            <th scope="row" colspan="2">Tax</th>
+            <td>₹{{ data.amount.tax }}</td>
+        </tr>
+        <tr>
+            <th scope="row" colspan="2">Total Cost</th>
+            <td>₹{{ data.amount.total }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock content %}

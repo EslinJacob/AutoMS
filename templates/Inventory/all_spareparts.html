@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}All Spareparts | {% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-11 mx-md-auto mx-3 mt-5 mb-5">
+        <a href="{% url 'inventory:inventory_home' %}" style="text-decoration: none;"><h1>Inventory Management</h1></a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Part no.</th>
+                    <th>Part Name</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                    <th>Model</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for part in spares %}
+                <tr>
+                    <td>{{ part.part_no }}</td>
+                    <td>{{ part.part_name }}</td>
+                    <td>{{ part.quantity }}</td>
+                    <td>{{ part.cost }}</td>
+                    <td>{{ part.vehicle_model }}</td>
+                    <td><a href="{% url 'inventory:edit_spareparts' part.part_no %}" style="text-decoration: none;">Edit</a></td>
+                    <td><a href="{% url 'inventory:delete_part' part.part_no %}" style="text-decoration: none;">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

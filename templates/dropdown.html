@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-6 col-11 mx-md-auto mx-3 mt-2 mb-2">
+        <!-- Responsive dropdown filter -->
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="tagFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter by Vehicle
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="tagFilterDropdown">
+                {% for item in dropdown %}
+                    <li><a class="dropdown-item" href="{% url 'inventory:filtered_parts' item %}">{{ item }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- End of responsive dropdown filter -->
+
+        <!-- Rest of your existing content -->
+        <!-- ... -->
+    </div>
+</div>

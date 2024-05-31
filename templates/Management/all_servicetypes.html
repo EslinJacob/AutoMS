@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Service types | {% endblock title %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-6 col-11 mx-md-auto mx-3 mt-5 mb-5">
+            <h1>Manage Service types
+            </h1>
+        </div>
+    </div>
+    <br>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Duration</th>
+                        <th>Cost</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service in servicetypes %}
+                    <tr>
+                        <td>{{ service.service_name }}</td>
+                        <td>{{ service.service_etc }}</td>
+                        <td>{{ service.service_cost }}</td>
+                        <td><a href="{% url 'management:edit_servicetypes' service.service_id %}" style="text-decoration: none;">Edit</a></td>
+                        <td><a href="{% url 'management:delete_servicetype' service.service_id %}" style="text-decoration: none;">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock content %}

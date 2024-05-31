@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Search | {% endblock title %}
+
+{% block content %}
+
+    <form action="{% url 'search:search_spareparts' %}" method="get">
+        <div class="container mt-3">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="input-group padded-input-group">
+                        <input type="search" name="query" class="form-control rounded" placeholder="Search" value="{{ query }}" aria-label="Search" aria-describedby="search-addon" />
+                        <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+                        <a href="{% url 'search:search_spareparts' %}" class="btn btn-outline-primary" data-mdb-ripple-init >Clear</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </form>
+
+    <hr>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Part no.</th>
+                    <th>Part Name</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                    <th>Model</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for part in results %}
+                <tr>
+                    <td>{{ part.part_no }}</td>
+                    <td>{{ part.part_name }}</td>
+                    <td>{{ part.quantity }}</td>
+                    <td>{{ part.cost }}</td>
+                    <td>{{ part.vehicle_model }}</td>
+                    <td><a href="{% url 'inventory:edit_spareparts' part.part_no %}" style="text-decoration: none;">Edit</a></td>
+                    <td><a href="{% url 'inventory:delete_part' part.part_no %}" style="text-decoration: none;">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+    {{ form.media }}
+{% endblock extra_js %}
+
+
+{% comment %} <script>
+    import { Ripple, initMDB } from "mdb-ui-kit";
+    initMDB({ Ripple });
+</script> {% endcomment %}

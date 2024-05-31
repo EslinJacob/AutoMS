@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}All Vehicles | {% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-11 mx-md-auto mx-3 mt-5 mb-5">
+        <a href="{% url 'inventory:inventory_home' %}" style="text-decoration: none;"><h1>Inventory Management</h1></a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Model Name</th>
+                    <th>Brand</th>
+                    <th>Image</th>
+                    <th>Log File</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in vehicles %}
+                <tr>
+                    <td>{{ vehicle.model_name }}</td>
+                    <td>{{ vehicle.brand }}</td>
+                    <td><img src="{{ vehicle.image.url }}" class="img-fluid" alt="Vehicle Image" style="width:50px; height:50px;"></td>
+                    <td><a href="{{ vehicle.log.url }}" target="_blank" style="text-decoration: none;">{{ vehicle.log.name|cut:"static/media/logs/" }}</a></td>
+                    <td><a href="{% url 'inventory:edit_vehicle' vehicle.id %}" style="text-decoration: none;">Edit</a></td>
+                    <td><a href="{% url 'inventory:delete_vehicle' vehicle.id %}" style="text-decoration: none;">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

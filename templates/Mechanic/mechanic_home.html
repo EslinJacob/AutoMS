@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Mechanic | {% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <h1 class="text-center mb-4">Your orders</h1>
+
+    {% for item in orders %}
+    <div class="card mb-3">
+        <div class="card-header">
+            Order Placed on {{ item.order_time|date:"M d, Y H:i" }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ item.customer.customer_name }}</h5>
+            <p class="card-text"><strong>Vehicle No:</strong> {{ item.customer.vehicle_no }}</p>
+            <p class="card-text"><strong>Assigned Engineer:</strong> {{ item.engineer }}</p>
+            <p class="card-text"><strong>Service Status:</strong> {{ item.get_status_display }}</p>
+            <p class="card-text"><strong>Service Type:</strong></p>
+            <ul>
+                {% for service_type in item.customer.vehicle_no.service_types.all %}
+                    <li>{{ service_type.service_name }}</li>
+                {% endfor %}
+            </ul>
+            <p class="card-text"><strong>Spare parts:</strong></p>
+            <ul>
+                {% for service_type in item.customer.vehicle_no.service_types.all %}
+                    {% for part in service_type.spare_parts.all %}
+                        <li>{{ part.part_name }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for part in item.additional_parts.all %}
+                    <li>{{ part.part_name }}</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'mechanic:update_order' item.order_id %}" class="btn btn-primary">Update</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-info" role="alert">
+        No orders found.
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
